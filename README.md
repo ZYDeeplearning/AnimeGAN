@@ -4,7 +4,8 @@ Pytorch implementation of AnimeGAN for fast photo animation
 
 * Paper: *AnimeGAN: a novel lightweight GAN for photo animation* - [Semantic scholar](https://www.semanticscholar.org/paper/AnimeGAN%3A-A-Novel-Lightweight-GAN-for-Photo-Chen-Liu/10a9c5d183e7e7df51db8bfa366bc862262b37d7#citing-papers) or from [Yoshino repo](https://github.com/TachibanaYoshino/AnimeGAN/blob/master/doc/Chen2020_Chapter_AnimeGAN.pdf)
 Skinkai style
-![Uploading anime_000007.png…]()
+![anime_000007](https://user-images.githubusercontent.com/107866293/210030409-e4efa67e-1e77-47e1-b644-3292480c7655.png)
+
 Hayao style
 ![anime_000014](https://user-images.githubusercontent.com/107866293/210030243-03734ed7-31b3-4c23-b630-0ba1465e15e0.png)
 
