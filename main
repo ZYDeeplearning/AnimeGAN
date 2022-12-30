@@ -1,0 +1,60 @@
+from utils import *
+from animeGAN import AnimeGANs
+import argparse
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--dataset', type=str, default='Hayao')
+    parser.add_argument('--data_dir', type=str, default='datasets')
+    parser.add_argument('--result_dir', type=str, default='results')
+    parser.add_argument('--epochs', type=int, default=100)
+    parser.add_argument('--cpu_count', type=int, default=1)
+    parser.add_argument('--init_epochs', type=int, default=5)
+    parser.add_argument('--batch_size', type=int, default=6)
+    parser.add_argument('--checkpoint_dir', type=str, default='checkpoints')
+    parser.add_argument('--save_image_dir', type=str, default='img')
+    parser.add_argument('--gan_loss', type=str, default='lsgan', help='lsgan / hinge / bce')
+    parser.add_argument('--retrain', type=bool, default=False)
+    parser.add_argument('--istrain', type=bool, default=True)
+    parser.add_argument('--init_train', type=bool, default=True)
+    parser.add_argument('--istest', type=bool, default=False)
+    parser.add_argument('--use_sn', action='store_true')
+    parser.add_argument('--save_interval', type=int, default=1)
+    parser.add_argument('--lr_g', type=float, default=2e-4)
+    parser.add_argument('--lr_d', type=float, default=4e-4)
+    parser.add_argument('--init_lr', type=float, default=1e-3)
+    parser.add_argument('--wadvg', type=float, default=10.0, help='Adversarial loss weight for G')
+    parser.add_argument('--wadvd', type=float, default=10.0, help='Adversarial loss weight for D')
+    parser.add_argument('--wcon', type=float, default=1.5, help='Content loss weight')
+    parser.add_argument('--wgra', type=float, default=3.0, help='Gram loss weight')
+    parser.add_argument('--wcol', type=float, default=30.0, help='Color loss weight')
+    parser.add_argument('--d_layers', type=int, default=3, help='Discriminator conv layers')
+    parser.add_argument('--d_noise', action='store_true')
+    parser.add_argument('--device',type=str,default='cpu',choices=['cuda','cpu'])
+    return check_args(parser.parse_args(args=[]))
+
+def check_args(args):
+    check_folder(os.path.join(args.result_dir, args.dataset, 'checkpoints'))
+    check_folder(os.path.join(args.result_dir, args.dataset, 'img'))
+    check_folder(os.path.join(args.result_dir, args.dataset, 'test'))
+    check_folder(os.path.join(args.result_dir, args.dataset, 'test', 'img'))
+    return args
+
+
+def main():
+   args=parse_args()
+   gan=AnimeGANs(args)
+   if args.istrain:
+       if args.retrain:
+            gan.load_model()
+       print(f"training on {args.device}")
+       gan.train()
+       print("train haved finished")
+   if args.istest:
+       gan.test()
+       print("test haved finished")
+if __name__=="__main__":
+    main()
+
+
+
+
